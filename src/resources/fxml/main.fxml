@@ -12,11 +12,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finance.Controller">
+<SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finance.MainController">
    <items>
-      <VBox maxWidth="300.0" prefHeight="200.0" prefWidth="100.0">
+      <VBox maxWidth="300.0" minWidth="200.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="304.0" text="Finance" textAlignment="CENTER" textFill="#212121">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="304.0" text="Logo" textAlignment="CENTER" textFill="#212121">
                <font>
                   <Font name="Georgia" size="48.0" />
                </font>
@@ -26,7 +26,7 @@
                   <Insets left="16.0" right="16.0" top="48.0" />
                </padding>
                <children>
-                  <Label prefHeight="35.0" prefWidth="315.0" text="Счета">
+                  <Label fx:id="labelPane1" onMouseReleased="#showPane1" prefHeight="35.0" prefWidth="315.0" text="Pane1">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -37,17 +37,17 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <Label text="Расходы">
+                  <Label text="Pane2">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Доходы">
+                  <Label text="Pane3">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Статистика">
+                  <Label text="Pane4">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -55,6 +55,6 @@
                </children>
             </VBox>
          </children></VBox>
-      <ScrollPane fx:id="mainPane" prefHeight="598.0" prefWidth="670.0" />
+      <Pane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" />
    </items>
 </SplitPane>
