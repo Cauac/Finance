@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 
 <SplitPane dividerPositions="0.5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finance.MainController">
    <items>
@@ -26,28 +19,22 @@
                   <Insets left="16.0" right="16.0" top="48.0" />
                </padding>
                <children>
-                  <Label fx:id="labelPane1" onMouseReleased="#showPane1" prefHeight="35.0" prefWidth="315.0" text="Pane1">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </Label>
-                  <Label text="Pane2">
+                  <Label onMouseReleased="#showPane1" prefHeight="35.0" prefWidth="315.0" text="Pane1">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Pane3">
+                  <Label onMouseReleased="#showPane2" text="Pane2">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Pane4">
+                  <Label onMouseReleased="#showPane3" text="Pane3">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Label onMouseReleased="#showPane4" text="Pane4">
                      <font>
                         <Font size="24.0" />
                      </font>

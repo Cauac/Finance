@@ -6,7 +6,7 @@
 
 <VBox prefHeight="500" prefWidth="500" style="-fx-background-color: #f06292;" xmlns="http://javafx.com/javafx/8">
     <children>
-        <Label alignment="CENTER" prefHeight="72" prefWidth="Infinity" style="-fx-background-color: #fffaf5;" text="Pane1" textFill="#212121">
+        <Label alignment="CENTER" prefHeight="72" prefWidth="Infinity" style="-fx-background-color: #fffaf5;" text="Pane4" textFill="#212121">
             <font>
                 <Font size="24.0"/>
             </font>
