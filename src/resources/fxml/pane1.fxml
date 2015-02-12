@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="500" prefWidth="500" style="-fx-background-color: #f06292;" xmlns="http://javafx.com/javafx/8">
+<VBox prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #f06292;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finance.Pane1Controller">
     <children>
         <Label alignment="CENTER" prefHeight="72" prefWidth="Infinity" style="-fx-background-color: #fffaf5;" text="Pane1" textFill="#212121">
             <font>
-                <Font size="24.0"/>
+                <Font size="24.0" />
             </font>
         </Label>
+      <FlowPane fx:id="flowPane" hgap="150.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="220.0" prefWidth="220.0" style="-fx-border-color: #727272; -fx-border-radius: 10; -fx-border-style: dashed;">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/ic_add_box_white_48dp.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Добавить">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <FlowPane.margin>
+                  <Insets />
+               </FlowPane.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+      </FlowPane>
     </children>
 </VBox>

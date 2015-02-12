@@ -1,6 +1,8 @@
 package finance;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 
@@ -12,7 +14,12 @@ public class MainController {
     @FXML
     protected void showPane1() {
         mainPane.getChildren().clear();
-        mainPane.getChildren().add(ResourceLoader.getPane1());
+        Parent pane = ResourceLoader.getPane1();
+        mainPane.getChildren().add(pane);
+        AnchorPane.setTopAnchor(pane,0d);
+        AnchorPane.setLeftAnchor(pane,0d);
+        AnchorPane.setRightAnchor(pane,0d);
+        AnchorPane.setBottomAnchor(pane,0d);
     }
 
     @FXML

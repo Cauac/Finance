@@ -67,4 +67,14 @@ public class ResourceLoader {
         }
         return pane4;
     }
+
+    public static Parent getAccountWidget(){
+        Parent widget=null;
+        try {
+            widget= FXMLLoader.load(ResourceLoader.class.getResource("/fxml/account.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return widget;
+    }
 }
