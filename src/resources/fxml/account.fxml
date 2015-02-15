@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="220.0" prefWidth="220.0" style="-fx-border-radius: 10; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="220.0" prefWidth="220.0" style="-fx-border-radius: 10; -fx-border-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finance.controller.AccountController">
    <children>
-      <Label alignment="CENTER" prefHeight="20.0" prefWidth="220.0" text="Label">
+      <Label fx:id="title" alignment="CENTER" prefHeight="20.0" prefWidth="220.0" text="Label">
          <font>
             <Font size="18.0" />
          </font>
@@ -17,29 +18,23 @@
       </Label>
        <Label text="Остаток:">
            <font>
-               <Font name="Georgia" size="16.0" />
+               <Font size="16.0" />
            </font>
        </Label>
        <Label alignment="CENTER" text="0$">
-           <font>
-               <Font name="Arial" size="12.0" />
-           </font>
          <VBox.margin>
             <Insets top="5.0" />
          </VBox.margin>
        </Label>
        <Label text="Тип:">
            <font>
-               <Font name="Georgia" size="16.0" />
+               <Font size="16.0" />
            </font>
          <VBox.margin>
-            <Insets top="20.0" />
+            <Insets top="10.0" />
          </VBox.margin>
        </Label>
        <Label alignment="CENTER" text="наличные">
-           <font>
-               <Font name="Arial" size="12.0" />
-           </font>
          <padding>
             <Insets top="5.0" />
          </padding>
@@ -47,7 +42,7 @@
       <HBox spacing="5.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" text="Изменить" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" text="Удалить" />
+            <Button mnemonicParsing="false" onMouseReleased="#removeBtn" prefHeight="40.0" prefWidth="110.0" text="Удалить" />
          </children>
          <VBox.margin>
             <Insets top="25.0" />

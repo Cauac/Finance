@@ -1,9 +1,11 @@
 package finance;
 
+import finance.controller.AccountController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class ResourceLoader {
 
@@ -12,6 +14,7 @@ public class ResourceLoader {
     private static Parent pane2 = null;
     private static Parent pane3 = null;
     private static Parent pane4 = null;
+    private static Parent confirmDialog = null;
 
     public static Parent getMainWindow() {
         if (mainWindow == null) {
@@ -68,13 +71,16 @@ public class ResourceLoader {
         return pane4;
     }
 
-    public static Parent getAccountWidget(){
-        Parent widget=null;
+    public static AccountController getAccountWidget() {
+        AccountController controller = null;
         try {
-            widget= FXMLLoader.load(ResourceLoader.class.getResource("/fxml/account.fxml"));
+            FXMLLoader loader = new FXMLLoader(ResourceLoader.class.getResource("/fxml/account.fxml"));
+            Parent widget = loader.load();
+            controller = loader.getController();
+            controller.setView(widget);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return widget;
+        return controller;
     }
 }
