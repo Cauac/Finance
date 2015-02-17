@@ -3,6 +3,7 @@ package finance;
 import finance.controller.AccountController;
 import finance.model.Account;
 import finance.view.account.AccountBox;
+import finance.view.account.NewAccountBox;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -26,13 +27,12 @@ public class Pane1Controller {
         account2.setCurrency("$");
         account2.setType("наличные");
         account2.setAmount(560d);
-//        AccountController accountWidget = ResourceLoader.getAccountWidget();
-//        accountWidget.setAccount(account1);
-        flowPane.getChildren().add(new AccountBox(account1));
-//        AccountController accountWidget2 = ResourceLoader.getAccountWidget();
-//        accountWidget2.setAccount(account2);
-        AccountBox accountBox = new AccountBox(account2);
-        accountBox.onRemoveAction(event -> flowPane.getChildren().remove(accountBox));
+        AccountBox accountBox = new AccountBox(account1);
+        accountBox.setOnRemoveAction(event -> flowPane.getChildren().remove(accountBox));
+        AccountBox accountBox2 = new AccountBox(account2);
+        accountBox2.setOnRemoveAction(event -> flowPane.getChildren().remove(accountBox2));
+        flowPane.getChildren().add(new NewAccountBox());
         flowPane.getChildren().add(accountBox);
+        flowPane.getChildren().add(accountBox2);
     }
 }

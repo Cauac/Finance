@@ -2,7 +2,6 @@ package finance.view.account;
 
 import finance.model.Account;
 import finance.view.dialog.ConfirmDialog;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,15 +11,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-import java.awt.*;
-
 public class AccountBox extends VBox {
-    Button removeBtn = new Button("Удалить");
+
+    protected Button editBtn = new Button("Изменить");
+    protected Button removeBtn = new Button("Удалить");
 
     public AccountBox(Account account) {
         setPrefWidth(220d);
         setPrefHeight(220d);
-        setStyle("-fx-border-radius: 6; -fx-border-color: black;");
+        setStyle("-fx-border-color: black;");
         setPadding(new Insets(5d, 16d, 0d, 16d));
 
         Label title = new Label(account.getTitle());
@@ -45,7 +44,6 @@ public class AccountBox extends VBox {
         type.setFont(new Font(12));
         VBox.setMargin(type, new Insets(5d, 0d, 0d, 0d));
 
-        Button editBtn = new Button("Изменить");
         editBtn.setPrefWidth(110d);
         editBtn.setPrefHeight(40d);
 
@@ -54,23 +52,19 @@ public class AccountBox extends VBox {
 
         HBox buttons = new HBox(5d);
         buttons.getChildren().addAll(editBtn, removeBtn);
-        VBox.setMargin(buttons, new Insets(25d, 0d, 0d, 0d));
+        VBox.setMargin(buttons, new Insets(15d, 0d, 0d, 0d));
 
         getChildren().addAll(title, amountLabel, amount, typeLabel, type, buttons);
     }
 
-    public void onRemoveAction(EventHandler handler) {
-        removeBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                ConfirmDialog dialog = new ConfirmDialog("Удалить", "Вы уверены что хотите удалить аккаунт?");
-                dialog.setModal(getScene().getWindow());
-                dialog.showAndWait();
-                if (dialog.isOKClicked()) {
-                    handler.handle(event);
-                }
+    public void setOnRemoveAction(EventHandler handler) {
+        removeBtn.setOnAction(event -> {
+            ConfirmDialog dialog = new ConfirmDialog("Удалить", "Вы уверены что хотите удалить аккаунт?");
+            dialog.setModal(getScene().getWindow());
+            dialog.showAndWait();
+            if (dialog.isOKClicked()) {
+                handler.handle(event);
             }
         });
-
     }
 }

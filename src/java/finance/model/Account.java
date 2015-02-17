@@ -2,10 +2,10 @@ package finance.model;
 
 public class Account {
 
-    String title;
-    String currency;
-    String type;
-    Double amount;
+    private String title;
+    private String currency;
+    private String type;
+    private double amount;
 
     public String getTitle() {
         return title;
