@@ -1,6 +1,10 @@
 package finance.view.account;
 
+import finance.ApplicationProperties;
 import finance.model.Account;
+import finance.view.event.SaveAccountEvent;
+import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -14,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.commons.lang3.math.NumberUtils;
 
 
 public class EditAccountDialog extends Stage {
@@ -22,8 +27,13 @@ public class EditAccountDialog extends Stage {
     public final static double FIELD_HEIGHT = 40d;
     public final static Font FORM_FONT = new Font(18d);
 
+    protected ChoiceBox<String> typeBox = new ChoiceBox();
+    protected ChoiceBox<String> currencyBox = new ChoiceBox();
+    protected TextField amountField = new TextField();
+    protected TextField descriptionField = new TextField();
+
     protected Account account;
-    protected boolean saveBtnClicked;
+    protected EventHandler<SaveAccountEvent> saveBtnHandler;
 
     public EditAccountDialog() {
         account = new Account();
@@ -62,20 +72,18 @@ public class EditAccountDialog extends Stage {
         amountLabel.setPrefHeight(FIELD_HEIGHT);
         VBox.setMargin(amountLabel, new Insets(10d, 0, 0, 0));
 
-        TextField descriptionField = new TextField();
         descriptionField.setPrefWidth(WIDTH);
         descriptionField.setPrefHeight(FIELD_HEIGHT);
         descriptionField.setFont(FORM_FONT);
 
-        ChoiceBox<String> currencyBox = new ChoiceBox();
         currencyBox.setPrefWidth(WIDTH);
         currencyBox.setPrefHeight(FIELD_HEIGHT);
+        currencyBox.setItems(FXCollections.observableArrayList(ApplicationProperties.getAccountCurrencies()));
 
-        ChoiceBox<String> typeBox = new ChoiceBox();
         typeBox.setPrefWidth(WIDTH);
         typeBox.setPrefHeight(FIELD_HEIGHT);
+        typeBox.setItems(FXCollections.observableArrayList(ApplicationProperties.getAccountTypes()));
 
-        TextField amountField = new TextField();
         amountField.setPrefHeight(FIELD_HEIGHT);
         amountField.setPrefWidth(WIDTH);
         amountField.setFont(FORM_FONT);
@@ -87,13 +95,10 @@ public class EditAccountDialog extends Stage {
         saveBtn.setFont(FORM_FONT);
         saveBtn.setPrefWidth(150d);
         saveBtn.setOnAction(e -> {
-            boolean isCorrect = !descriptionField.getText().isEmpty() && !currencyBox.getSelectionModel().isEmpty() && !typeBox.getSelectionModel().isEmpty();
-            if (isCorrect) {
-                saveBtnClicked = true;
-                this.account.setTitle(descriptionField.getText());
-                this.account.setType(typeBox.getValue());
-                this.account.setCurrency(currencyBox.getValue());
-                this.account.setAmount(Double.parseDouble(amountField.getText()));
+            if (checkFields()) {
+                if (saveBtnHandler != null) {
+                    saveBtnHandler.handle(new SaveAccountEvent(getAccount()));
+                }
                 this.close();
             }
         });
@@ -108,5 +113,25 @@ public class EditAccountDialog extends Stage {
 
         root.getChildren().addAll(descriptionLabel, descriptionField, currencyLabel, currencyBox, typeLabel, typeBox, amountLabel, amountField, buttons);
         return root;
+    }
+
+    protected boolean checkFields() {
+        return !descriptionField.getText().isEmpty()
+                && !amountField.getText().isEmpty()
+                && NumberUtils.isNumber(amountField.getText());
+
+    }
+
+    protected Account getAccount() {
+        Account account = new Account();
+        account.setTitle(descriptionField.getText());
+        account.setCurrency(currencyBox.getValue());
+        account.setType(typeBox.getValue());
+        account.setAmount(Double.parseDouble(amountField.getText()));
+        return account;
+    }
+
+    public void setOnSaveBtnHandler(EventHandler<SaveAccountEvent> eventHandler) {
+        this.saveBtnHandler = eventHandler;
     }
 }
