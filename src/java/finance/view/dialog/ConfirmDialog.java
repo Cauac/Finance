@@ -15,7 +15,7 @@ import javafx.stage.Window;
 
 public class ConfirmDialog extends Stage {
 
-    public static final Image image = new Image(ConfirmDialog.class.getResourceAsStream("/images/ic_info_white_48dp.png"));
+    public static final Image image = new Image(ConfirmDialog.class.getResourceAsStream("images/ic_info_white_48dp.png"));
     public static final Font font = new Font(18);
 
     private boolean isOKClicked;

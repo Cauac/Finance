@@ -1,6 +1,7 @@
 package finance.view.account;
 
-import finance.view.event.SaveAccountEvent;
+import finance.view.dialog.EditAccountDialog;
+import finance.view.event.AccountEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -28,7 +29,7 @@ public class NewAccountBox extends VBox {
         getChildren().addAll(imageView, add);
     }
 
-    public void setSaveAccountEventEventHandler(EventHandler<SaveAccountEvent> handler) {
+    public void setSaveAccountEventEventHandler(EventHandler<AccountEvent> handler) {
         setOnMouseReleased(e -> {
             EditAccountDialog dialog = new EditAccountDialog();
             dialog.setOnSaveBtnHandler(handler);

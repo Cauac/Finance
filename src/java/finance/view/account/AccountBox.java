@@ -2,6 +2,8 @@ package finance.view.account;
 
 import finance.model.Account;
 import finance.view.dialog.ConfirmDialog;
+import finance.view.dialog.EditAccountDialog;
+import finance.view.event.AccountEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,8 +15,8 @@ import javafx.scene.text.Font;
 
 public class AccountBox extends VBox {
 
-    protected Button editBtn = new Button("Изменить");
-    protected Button removeBtn = new Button("Удалить");
+    private EventHandler<AccountEvent> updateAccountHandler;
+    private EventHandler<AccountEvent> removeAccountHandler;
 
     public AccountBox(Account account) {
         setPrefWidth(220d);
@@ -44,11 +46,34 @@ public class AccountBox extends VBox {
         type.setFont(new Font(12));
         VBox.setMargin(type, new Insets(5d, 0d, 0d, 0d));
 
+        Button editBtn = new Button("Изменить");
         editBtn.setPrefWidth(110d);
         editBtn.setPrefHeight(40d);
+        editBtn.setOnAction(e -> {
+            EditAccountDialog dialog = new EditAccountDialog(account);
+            dialog.setOnSaveBtnHandler(event -> {
+                Account changedAccount = event.getAccount();
+                title.setText(changedAccount.getTitle());
+                amount.setText(changedAccount.getAmount() + " " + changedAccount.getCurrency());
+                type.setText(changedAccount.getType());
+                if (updateAccountHandler != null) {
+                    updateAccountHandler.handle(event);
+                }
+            });
+            dialog.showAndWait();
+        });
 
+        Button removeBtn = new Button("Удалить");
         removeBtn.setPrefWidth(110d);
         removeBtn.setPrefHeight(40d);
+        removeBtn.setOnAction(e -> {
+            ConfirmDialog dialog = new ConfirmDialog("Удалить", "Вы уверены что хотите удалить аккаунт?");
+            dialog.setModal(getScene().getWindow());
+            dialog.showAndWait();
+            if (dialog.isOKClicked() && removeAccountHandler != null) {
+                removeAccountHandler.handle(new AccountEvent(account));
+            }
+        });
 
         HBox buttons = new HBox(5d);
         buttons.getChildren().addAll(editBtn, removeBtn);
@@ -57,14 +82,11 @@ public class AccountBox extends VBox {
         getChildren().addAll(title, amountLabel, amount, typeLabel, type, buttons);
     }
 
-    public void setOnRemoveAction(EventHandler handler) {
-        removeBtn.setOnAction(event -> {
-            ConfirmDialog dialog = new ConfirmDialog("Удалить", "Вы уверены что хотите удалить аккаунт?");
-            dialog.setModal(getScene().getWindow());
-            dialog.showAndWait();
-            if (dialog.isOKClicked()) {
-                handler.handle(event);
-            }
-        });
+    public void setUpdateAccountHandler(EventHandler<AccountEvent> updateAccountHandler) {
+        this.updateAccountHandler = updateAccountHandler;
+    }
+
+    public void setRemoveAccountHandler(EventHandler<AccountEvent> removeAccountHandler) {
+        this.removeAccountHandler = removeAccountHandler;
     }
 }

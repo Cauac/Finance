@@ -14,9 +14,13 @@ public class Pane1Controller {
     private void initialize() {
 
         NewAccountBox newAccountBox = new NewAccountBox();
-        newAccountBox.setSaveAccountEventEventHandler(e ->
+        newAccountBox.setSaveAccountEventEventHandler(newEvent ->
         {
-            flowPane.getChildren().add(new AccountBox(e.getAccount()));
+            AccountBox accountBox = new AccountBox(newEvent.getAccount());
+            accountBox.setRemoveAccountHandler(removeEvent -> flowPane.getChildren().remove(accountBox));
+            accountBox.setUpdateAccountHandler(updateEvent->{
+            });
+            flowPane.getChildren().add(accountBox);
         });
 
         flowPane.getChildren().add(newAccountBox);

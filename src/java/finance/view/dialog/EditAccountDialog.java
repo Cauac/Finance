@@ -1,8 +1,8 @@
-package finance.view.account;
+package finance.view.dialog;
 
 import finance.ApplicationProperties;
 import finance.model.Account;
-import finance.view.event.SaveAccountEvent;
+import finance.view.event.AccountEvent;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -27,27 +27,26 @@ public class EditAccountDialog extends Stage {
     public final static double FIELD_HEIGHT = 40d;
     public final static Font FORM_FONT = new Font(18d);
 
-    protected ChoiceBox<String> typeBox = new ChoiceBox();
-    protected ChoiceBox<String> currencyBox = new ChoiceBox();
+    protected ChoiceBox<String> typeBox = new ChoiceBox<>();
+    protected ChoiceBox<String> currencyBox = new ChoiceBox<>();
     protected TextField amountField = new TextField();
     protected TextField descriptionField = new TextField();
 
     protected Account account;
-    protected EventHandler<SaveAccountEvent> saveBtnHandler;
+    protected EventHandler<AccountEvent> saveBtnHandler;
 
     public EditAccountDialog() {
         account = new Account();
         initStyle(StageStyle.UTILITY);
-        setScene(new Scene(build(account)));
+        setScene(new Scene(build()));
     }
 
     public EditAccountDialog(Account account) {
-        account = new Account();
-        initStyle(StageStyle.UTILITY);
-        setScene(new Scene(build(account)));
+        this();
+        populateFields(account);
     }
 
-    protected Parent build(Account account) {
+    protected Parent build() {
         VBox root = new VBox();
         root.setPrefWidth(WIDTH);
         root.setPrefHeight(450d);
@@ -97,7 +96,7 @@ public class EditAccountDialog extends Stage {
         saveBtn.setOnAction(e -> {
             if (checkFields()) {
                 if (saveBtnHandler != null) {
-                    saveBtnHandler.handle(new SaveAccountEvent(getAccount()));
+                    saveBtnHandler.handle(new AccountEvent(getAccount()));
                 }
                 this.close();
             }
@@ -115,11 +114,15 @@ public class EditAccountDialog extends Stage {
         return root;
     }
 
-    protected boolean checkFields() {
-        return !descriptionField.getText().isEmpty()
-                && !amountField.getText().isEmpty()
-                && NumberUtils.isNumber(amountField.getText());
+    protected void populateFields(Account account) {
+        descriptionField.setText(account.getTitle());
+        currencyBox.getSelectionModel().select(account.getCurrency());
+        typeBox.getSelectionModel().select(account.getType());
+        amountField.setText(account.getAmount().toString());
+    }
 
+    protected boolean checkFields() {
+        return !descriptionField.getText().isEmpty() && !amountField.getText().isEmpty() && NumberUtils.isNumber(amountField.getText());
     }
 
     protected Account getAccount() {
@@ -131,7 +134,7 @@ public class EditAccountDialog extends Stage {
         return account;
     }
 
-    public void setOnSaveBtnHandler(EventHandler<SaveAccountEvent> eventHandler) {
+    public void setOnSaveBtnHandler(EventHandler<AccountEvent> eventHandler) {
         this.saveBtnHandler = eventHandler;
     }
 }

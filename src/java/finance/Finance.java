@@ -12,6 +12,8 @@ public class Finance extends javafx.application.Application {
         primaryStage.show();
         primaryStage.setMinHeight(600);
         primaryStage.setMinWidth(900);
+        primaryStage.setY(20);
+        primaryStage.setX(20);
     }
 
 

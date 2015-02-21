@@ -8,29 +8,30 @@ import java.util.Properties;
 public class ApplicationProperties {
 
     private static Properties properties;
+    private static List<String> currencies;
+    private static List<String> accountTypes = Arrays.asList("наличные", "банк. счет");
 
-    private static void loadProperties() {
-        properties = new Properties();
-        try {
-            properties.load(ApplicationProperties.class.getClassLoader().getResourceAsStream("application.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static List<String> getAccountCurrencies() {
+        if (currencies == null) {
+            String property = getProperty("account.currencies");
+            currencies = Arrays.asList(property.split(","));
         }
+        return currencies;
     }
 
-    public static List getAccountCurrencies() {
-        if (properties == null) {
-            loadProperties();
-        }
-        String property = properties.getProperty("account.currencies");
-        return Arrays.asList(property.split(","));
+    public static List<String> getAccountTypes() {
+        return accountTypes;
     }
 
-    public static List getAccountTypes() {
+    private static String getProperty(String propertyName) {
         if (properties == null) {
-            loadProperties();
+            try {
+                properties = new Properties();
+                properties.load(ApplicationProperties.class.getClassLoader().getResourceAsStream("application.properties"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        String property = properties.getProperty("account.types");
-        return Arrays.asList(property.split(","));
+        return properties.getProperty(propertyName);
     }
 }
