@@ -2,10 +2,19 @@ package finance.model;
 
 public class Account {
 
+    private String id;
     private String title;
     private String currency;
     private String type;
-    private double amount;
+    private long amount;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -31,11 +40,11 @@ public class Account {
         this.type = type;
     }
 
-    public Double getAmount() {
+    public Long getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
 }

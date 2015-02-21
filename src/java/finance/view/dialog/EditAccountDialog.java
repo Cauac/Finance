@@ -3,6 +3,8 @@ package finance.view.dialog;
 import finance.ApplicationProperties;
 import finance.model.Account;
 import finance.view.event.AccountEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,12 +18,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.commons.lang3.math.NumberUtils;
 
 
-public class EditAccountDialog extends Stage {
+public class EditAccountDialog extends AbstractDialog {
 
     public final static double WIDTH = 300d;
     public final static double FIELD_HEIGHT = 40d;
@@ -78,14 +79,24 @@ public class EditAccountDialog extends Stage {
         currencyBox.setPrefWidth(WIDTH);
         currencyBox.setPrefHeight(FIELD_HEIGHT);
         currencyBox.setItems(FXCollections.observableArrayList(ApplicationProperties.getAccountCurrencies()));
+        currencyBox.getSelectionModel().select(0);
 
         typeBox.setPrefWidth(WIDTH);
         typeBox.setPrefHeight(FIELD_HEIGHT);
         typeBox.setItems(FXCollections.observableArrayList(ApplicationProperties.getAccountTypes()));
+        typeBox.getSelectionModel().select(0);
 
         amountField.setPrefHeight(FIELD_HEIGHT);
         amountField.setPrefWidth(WIDTH);
         amountField.setFont(FORM_FONT);
+        amountField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.length() > 0 && !NumberUtils.isDigits(newValue)) {
+                    amountField.setText(oldValue);
+                }
+            }
+        });
 
         HBox buttons = new HBox(10);
         buttons.setAlignment(Pos.CENTER);
@@ -130,7 +141,7 @@ public class EditAccountDialog extends Stage {
         account.setTitle(descriptionField.getText());
         account.setCurrency(currencyBox.getValue());
         account.setType(typeBox.getValue());
-        account.setAmount(Double.parseDouble(amountField.getText()));
+        account.setAmount(Long.parseLong(amountField.getText()));
         return account;
     }
 

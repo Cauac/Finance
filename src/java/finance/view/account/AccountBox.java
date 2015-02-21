@@ -1,5 +1,6 @@
 package finance.view.account;
 
+import finance.ApplicationUtils;
 import finance.model.Account;
 import finance.view.dialog.ConfirmDialog;
 import finance.view.dialog.EditAccountDialog;
@@ -34,7 +35,7 @@ public class AccountBox extends VBox {
         Label amountLabel = new Label("Остаток:");
         amountLabel.setFont(new Font(16));
 
-        Label amount = new Label(account.getAmount() + " " + account.getCurrency());
+        Label amount = new Label(ApplicationUtils.formatMoney(account.getAmount()) + " " + account.getCurrency());
         amount.setFont(new Font(12));
         VBox.setMargin(amount, new Insets(5d, 0d, 0d, 0d));
 
@@ -51,6 +52,7 @@ public class AccountBox extends VBox {
         editBtn.setPrefHeight(40d);
         editBtn.setOnAction(e -> {
             EditAccountDialog dialog = new EditAccountDialog(account);
+            dialog.setModal(getScene().getWindow());
             dialog.setOnSaveBtnHandler(event -> {
                 Account changedAccount = event.getAccount();
                 title.setText(changedAccount.getTitle());

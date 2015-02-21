@@ -8,12 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.Window;
 
-public class ConfirmDialog extends Stage {
+public class ConfirmDialog extends AbstractDialog {
 
     public static final Image image = new Image(ConfirmDialog.class.getResourceAsStream("images/ic_info_white_48dp.png"));
     public static final Font font = new Font(18);
@@ -63,11 +60,6 @@ public class ConfirmDialog extends Stage {
 
         root.getChildren().addAll(imageView, messageLabel, ok, cancel);
         return root;
-    }
-
-    public void setModal(Window owner) {
-        initModality(Modality.WINDOW_MODAL);
-        initOwner(owner);
     }
 
     public boolean isOKClicked() {
