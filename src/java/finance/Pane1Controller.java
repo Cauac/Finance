@@ -20,7 +20,7 @@ public class Pane1Controller {
             accountBox.setRemoveAccountHandler(removeEvent -> flowPane.getChildren().remove(accountBox));
             accountBox.setUpdateAccountHandler(updateEvent->{
             });
-            flowPane.getChildren().add(accountBox);
+            flowPane.getChildren().add(0,accountBox);
         });
 
         flowPane.getChildren().add(newAccountBox);
